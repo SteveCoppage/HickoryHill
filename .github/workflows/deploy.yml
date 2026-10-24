@@ -28,6 +28,8 @@ jobs:
           if [ -d SoundEffects ]; then cp -r SoundEffects site/; fi
           # Publish the MomAndDad board at /MomAndDad (front page unchanged)
           if [ -d MomAndDad ]; then cp -r MomAndDad site/; fi
+          # Publish the lowercase momanddad redirect at /momanddad (front page unchanged)
+          if [ -d momanddad ]; then cp -r momanddad site/; fi
           ls -R site
       - name: Set personal page as front page
         run: cp personal-page.html site/index.html
