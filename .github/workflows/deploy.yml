@@ -24,6 +24,8 @@ jobs:
             sub=$(find site -mindepth 1 -maxdepth 1 -type d | head -n 1)
             if [ -n "$sub" ] && [ -f "$sub/index.html" ]; then cp -r "$sub"/. site/; fi
           fi
+          # Publish the SoundEffects test copy at /SoundEffects (front page unchanged)
+          if [ -d SoundEffects ]; then cp -r SoundEffects site/; fi
           ls -R site
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
