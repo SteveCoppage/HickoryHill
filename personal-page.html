@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Hickory Hill</title>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --ink: #1c2420;
+        --soft: #5a6660;
+        --accent: #2e5339;
+        --accent-ink: #ffffff;
+        --rule: #d8ded9;
+        --card-bg: #f3f7f2;
+        --card-border: #b9ccb6;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #131815;
+          --ink: #eef2ee;
+          --soft: #a3ada5;
+          --accent: #7fb08c;
+          --accent-ink: #10150f;
+          --rule: #2c352e;
+          --card-bg: #1a211b;
+          --card-border: #41543f;
+        }
+      }
+
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      main {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 48px 24px;
+      }
+
+      h1 {
+        font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+        font-weight: 600;
+        font-size: clamp(2.6rem, 9vw, 4.25rem);
+        line-height: 1.05;
+        letter-spacing: -0.01em;
+        margin: 0;
+      }
+
+      .location {
+        margin: 12px 0 0;
+        font-size: clamp(0.95rem, 3vw, 1.1rem);
+        color: var(--soft);
+      }
+
+      .names {
+        margin: 18px 0 0;
+        font-size: clamp(1.05rem, 3.6vw, 1.3rem);
+        color: var(--soft);
+      }
+
+      .role {
+        margin: 6px 0 0;
+        font-size: clamp(0.95rem, 3vw, 1.1rem);
+        color: var(--soft);
+      }
+
+      .people {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px 56px;
+        width: min(680px, 100%);
+        margin-top: 44px;
+        text-align: left;
+      }
+      @media (max-width: 560px) {
+        .people { grid-template-columns: 1fr; }
+      }
+
+      .person {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 12px;
+        padding: 26px 28px 30px;
+      }
+
+      .person h2 {
+        font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+        font-weight: 600;
+        font-size: 1.45rem;
+        line-height: 1.15;
+        margin: 0;
+      }
+
+      .person .mini-rule {
+        width: 40px;
+        height: 2px;
+        background: var(--accent);
+        margin: 14px 0;
+      }
+
+      .person .bio {
+        min-height: 3.4em;
+        line-height: 1.55;
+      }
+
+      .person .bio p {
+        margin: 0;
+      }
+
+      .person .email {
+        margin: 16px 0 0;
+        font-size: 0.95rem;
+      }
+      .person .email a {
+        color: var(--accent);
+        text-decoration: none;
+        word-break: break-all;
+      }
+      .person .email a:hover { text-decoration: underline; }
+      .person .email a:focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .rule {
+        width: 56px;
+        height: 1px;
+        background: var(--rule);
+        margin: 40px 0;
+      }
+
+      a.sound-effects {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--accent);
+        color: var(--accent-ink);
+        text-decoration: none;
+        font-size: 1.05rem;
+        font-weight: 600;
+        padding: 14px 26px;
+        border-radius: 999px;
+      }
+      a.sound-effects:hover { opacity: 0.88; }
+      a.sound-effects:focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 3px;
+      }
+      a.sound-effects .arrow { font-weight: 400; }
+
+      .link-note {
+        margin: 14px 0 0;
+        font-size: 0.9rem;
+        color: var(--soft);
+      }
+
+      .copyright {
+        margin: 48px 0 0;
+        font-size: 0.85rem;
+        color: var(--soft);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Hickory Hill</h1>
+      <p class="location">Plantsville, Connecticut 06479</p>
+      <p class="names">Steve Coppage &amp; Nina Hinchee</p>
+      <p class="role">Co-founders</p>
+
+      <div class="people">
+        <section class="person">
+          <h2>Steve Coppage</h2>
+          <div class="mini-rule" aria-hidden="true"></div>
+          <div class="bio">
+            <p>Born in Ohio, he grew up in West Hartford and went to Conard High School, &rsquo;72. He graduated from Brown University. He has a J.D. from Yale Law School and a Ph.D. in physics from Wesleyan University.</p>
+          </div>
+          <p class="email"><a href="mailto:Coppage@HickoryHill.com">Coppage@HickoryHill.com</a></p>
+        </section>
+        <section class="person">
+          <h2>Nina Hinchee</h2>
+          <div class="mini-rule" aria-hidden="true"></div>
+          <div class="bio">
+            <p>Born in Texas, she grew up in Calgary, Alberta, and Fairfield, Connecticut. She has an A.B. in anthropology from Brown University &rsquo;76.</p>
+          </div>
+          <p class="email"><a href="mailto:Hinchee@Outlook.com">Hinchee@Outlook.com</a></p>
+        </section>
+      </div>
+
+      <div class="rule" aria-hidden="true"></div>
+
+      <a class="sound-effects" href="https://hickoryhill.com/SoundEffects">
+        Sound Effects <span class="arrow" aria-hidden="true">&rarr;</span>
+      </a>
+      <p class="link-note">hickoryhill.com/SoundEffects</p>
+
+      <p class="copyright">&copy; 2026 Steve Coppage &amp; Nina Hinchee</p>
+    </main>
+  </body>
+</html>
