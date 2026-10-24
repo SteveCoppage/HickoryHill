@@ -160,6 +160,12 @@
         outline-offset: 3px;
       }
       a.sound-effects .arrow { font-weight: 400; }
+            .button-row {
+                      display: flex;
+                      gap: 16px;
+                      justify-content: center;
+                      flex-wrap: wrap;
+            }
 
       .link-note {
         margin: 14px 0 0;
@@ -202,10 +208,12 @@
 
       <div class="rule" aria-hidden="true"></div>
 
-      <a class="sound-effects" href="https://hickoryhill.com/SoundEffects">
+          <div class="button-row">
+            <a class="sound-effects" href="https://hickoryhill.com/SoundEffects">
         Sound Effects <span class="arrow" aria-hidden="true">&rarr;</span>
       </a>
           <a class="sound-effects" href="https://hickoryhill.com/MomAndDad">Mom and Dad <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          </div>
 
       <p class="copyright">&copy; 2026 Steve Coppage &amp; Nina Hinchee</p>
     </main>
