@@ -30,6 +30,8 @@ jobs:
           if [ -d MomAndDad ]; then cp -r MomAndDad site/; fi
           # Publish the lowercase momanddad redirect at /momanddad (front page unchanged)
           if [ -d momanddad ]; then cp -r momanddad site/; fi
+          # Publish the lowercase soundeffects redirect at /soundeffects (front page unchanged)
+          if [ -d soundeffects ]; then cp -r soundeffects site/; fi
           ls -R site
       - name: Set personal page as front page
         run: cp personal-page.html site/index.html
