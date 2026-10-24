@@ -27,6 +27,8 @@ jobs:
           # Publish the SoundEffects test copy at /SoundEffects (front page unchanged)
           if [ -d SoundEffects ]; then cp -r SoundEffects site/; fi
           ls -R site
+      - name: Set personal page as front page
+        run: cp personal-page.html site/index.html
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
