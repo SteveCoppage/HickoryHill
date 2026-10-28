@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Movies</title>
+<style>
+  * { box-sizing: border-box; }
+  :root { --page-bg: #20242b; --panel-bg: #2c313a; --panel-edge: #171a1f; --panel-line: #454c58; --ink: #f4f1e8; --ink-dim: #b9bec9; --led-bg: #14100a; --led-ink: #ffb52e; }
+  @media (prefers-color-scheme: light) { :root { --page-bg: #c9ccd2; --panel-bg: #dde0e6; --panel-edge: #9aa0ab; --panel-line: #b4b9c2; --ink: #1d2129; --ink-dim: #4c5260; --led-bg: #1c1710; --led-ink: #ffb52e; } }
+  body { margin: 0; padding: 12px 10px 28px; font-family: "Avenir Next", "Segoe UI", system-ui, -apple-system, sans-serif; background: var(--page-bg); color: var(--ink); }
+  .wrap { max-width: 1060px; margin: 0 auto; width: 100%; }
+  section.panel { background: var(--panel-bg); border: 2px solid var(--panel-edge); border-radius: 16px;
+                box-shadow: 0 4px 0 var(--panel-edge); padding: 14px; margin-bottom: 14px; }
+  .title-panel { text-align: center; padding: 12px 14px; }
+  .title-panel h1 { margin: 0; font-size: clamp(22px, 4vw, 30px); font-weight: 800; letter-spacing: .02em; line-height: 1.1; }
+  .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; width: 100%; }
+  .btn { border: none; border-radius: 14px; padding: 14px 8px 10px; cursor: pointer; color: #fff;
+         font-family: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center;
+         min-height: 118px; background: var(--btn, #666);
+         box-shadow: 0 5px 0 var(--btn-edge, #444), 0 8px 10px rgba(0,0,0,.35), inset 0 2px 0 rgba(255,255,255,.35), inset 0 -3px 0 rgba(0,0,0,.18); }
+  .btn:active { transform: translateY(4px);
+         box-shadow: 0 2px 0 var(--btn-edge, #444), 0 4px 6px rgba(0,0,0,.35), inset 0 2px 0 rgba(255,255,255,.3), inset 0 -2px 0 rgba(0,0,0,.18); filter: brightness(1.12); }
+  .btn .quote { font-size: 16px; font-weight: 700; line-height: 1.25; }
+  .btn .movie { font-size: 12.5px; font-style: italic; line-height: 1.2; min-height: 2.4em;
+                display: flex; align-items: flex-start; justify-content: center; text-align: center;
+                opacity: 0; margin-top: 6px; }
+  .btn.revealed .movie { opacity: 0.95; }
+  .red { --btn:#d8362c; --btn-edge:#8f1f19; }
+  .gold { --btn:#e8a20c; --btn-edge:#9c6a05; }
+  .blue { --btn:#2076c7; --btn-edge:#124e85; }
+  .teal { --btn:#0f9488; --btn-edge:#0a5f57; }
+  .foot-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; background: var(--panel-bg);
+              border: 2px solid var(--panel-edge); border-radius: 16px; padding: 10px 12px; margin-bottom: 14px; box-shadow: 0 4px 0 var(--panel-edge); }
+  .foot-bar .led { flex: 1 1 auto; min-width: 0; }
+  .foot-bar .sound-note { flex: 0 0 auto; }
+  .foot-bar .credits-btn { flex: 0 0 auto; }
+  .sound-note { color: var(--ink-dim); font-size: 13px; font-weight: 600; white-space: nowrap; }
+  .led { background: #14100a; border-radius: 10px; border: 2px solid #000; box-shadow: inset 0 2px 10px rgba(0,0,0,.85);
+         padding: 8px 12px; font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+         font-size: clamp(13px, 2.6vw, 16px); letter-spacing: .14em; color: #ffb52e; text-transform: uppercase;
+         white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .led .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%;
+              background: #ff4136; margin-right: 10px; vertical-align: 2px; box-shadow: 0 0 8px #ff4136; }
+  .credits-btn { appearance: none; background: transparent; border: 1.5px solid var(--panel-line); color: var(--ink-dim); font: inherit;
+                 font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 999px; cursor: pointer; }
+  .credits-btn:active { transform: translateY(1px); }
+  #credits { display: none; margin-top: 20px; background: var(--panel-bg); border-radius: 12px; padding: 16px 20px; }
+  #credits.open { display: block; }
+  #credits h2 { font-size: 18px; margin: 0 0 10px; }
+  #credits ol { margin: 0; padding-left: 22px; font-size: 14px; line-height: 1.7; color: var(--ink-dim); }
+  #credits .copy { margin-top: 14px; font-size: 12px; color: var(--ink-dim); }
+  #credits .copy a { color: inherit; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="panel title-panel"><h1>Movies</h1></section>
+  <section class="panel" aria-label="Movies"><div class="grid">
+    <button class="btn red" data-audio="assets/movie-gandalf.mp3"><span class="quote">You shall not pass!</span><span class="movie">The Lord of the Rings: The Fellowship of the Ring</span></button>
+    <button class="btn red" data-audio="assets/movie-gladiator.mp3"><span class="quote">Are you not entertained? Are you not entertained?</span><span class="movie">Gladiator</span></button>
+    <button class="btn red" data-audio="assets/movie-stella.mp3"><span class="quote">Stella! Stella!</span><span class="movie">A Streetcar Named Desire</span></button>
+    <button class="btn red" data-audio="assets/movie-truth.mp3"><span class="quote">You can't handle the truth!</span><span class="movie">A Few Good Men</span></button>
+    <button class="btn gold" data-audio="assets/movie-bond1.mp3"><span class="quote">Bond... James Bond</span><span class="movie">Dr. No</span></button>
+    <button class="btn gold" data-audio="assets/movie-terminator.mp3"><span class="quote">I'll be back.</span><span class="movie">The Terminator</span></button>
+    <button class="btn gold" data-audio="assets/movie-harry.mp3"><span class="quote">Well do ya, punk.</span><span class="movie">Dirty Harry</span></button>
+    <button class="btn gold" data-audio="assets/movie-barbara.mp3"><span class="quote">They're coming to get you, Barbara.</span><span class="movie">Night of the Living Dead</span></button>
+    <button class="btn blue" data-audio="assets/movie-newt.mp3"><span class="quote">They mostly come at night. Mostly.</span><span class="movie">Aliens</span></button>
+    <button class="btn blue" data-audio="assets/movie-witch.mp3"><span class="quote">I'll get you, my pretty, and your little dog, too!</span><span class="movie">The Wizard of Oz</span></button>
+    <button class="btn blue" data-audio="assets/movie-alive.mp3"><span class="quote">She's alive! Alive!</span><span class="movie">Bride of Frankenstein</span></button>
+    <button class="btn blue" data-audio="assets/movie-boat.mp3"><span class="quote">You're gonna need a bigger boat.</span><span class="movie">Jaws</span></button>
+    <button class="btn teal" data-audio="assets/movie-austin.mp3"><span class="quote">Yeah, baby!</span><span class="movie">Austin Powers: International Man of Mystery</span></button>
+    <button class="btn teal" data-audio="assets/movie-badges.mp3"><span class="quote">Badges? We don't need no stinking badges!</span><span class="movie">Blazing Saddles</span></button>
+    <button class="btn teal" data-audio="assets/movie-toga.mp3"><span class="quote">Toga! Toga!</span><span class="movie">Animal House</span></button>
+    <button class="btn teal" data-audio="assets/movie-diehard.mp3"><span class="quote">Yippee-ki-yay, motherfucker!</span><span class="movie">Die Hard</span></button>
+  </div></section>
+  <div class="foot-bar">
+    <div class="led" id="led" aria-live="polite"><span class="dot"></span><span id="ledText">Ready</span></div>
+    <span class="sound-note">Be sure sound is on</span>
+    <button type="button" class="credits-btn" id="creditsBtn" aria-expanded="false" aria-controls="credits">Credits</button>
+  </div>
+  <div id="credits">
+    <h2>Credits</h2>
+    <ol>
+      <li>Gandalf — Ian McKellen — The Lord of the Rings: The Fellowship of the Ring — 2001</li>
+      <li>Maximus — Russell Crowe — Gladiator — 2000</li>
+      <li>Stanley Kowalski — Marlon Brando — A Streetcar Named Desire — 1951</li>
+      <li>Col. Nathan R. Jessup — Jack Nicholson — A Few Good Men — 1992</li>
+      <li>James Bond — Sean Connery — Dr. No — 1962</li>
+      <li>The Terminator — Arnold Schwarzenegger — The Terminator — 1984</li>
+      <li>Inspector Harry Callahan — Clint Eastwood — Dirty Harry — 1971</li>
+      <li>Johnny — Russell Streiner — Night of the Living Dead — 1968</li>
+      <li>Newt — Carrie Henn — Aliens — 1986</li>
+      <li>Wicked Witch of the West — Margaret Hamilton — The Wizard of Oz — 1939</li>
+      <li>Dr. Henry Frankenstein — Colin Clive — Bride of Frankenstein — 1935</li>
+      <li>Chief Martin Brody — Roy Scheider — Jaws — 1975</li>
+      <li>Austin Powers — Mike Myers — Austin Powers: International Man of Mystery — 1997</li>
+      <li>Mexican bandit leader — Rick Garcia — Blazing Saddles — 1974</li>
+      <li>Bluto — John Belushi — Animal House — 1978</li>
+      <li>John McClane — Bruce Willis — Die Hard — 1988</li>
+    </ol>
+    <div class="copy"><a href="https://hickoryhill.com/">© 2026 Steve Coppage &amp; Nina Hinchee</a></div>
+  </div>
+</div>
+<script>
+  var player = new Audio();
+  var buttons = document.querySelectorAll('.btn');
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      player.src = b.getAttribute('data-audio');
+      player.play();
+      buttons.forEach(function (x) { x.classList.remove('revealed'); });
+      b.classList.add('revealed');
+    });
+  });
+  document.getElementById('creditsBtn').addEventListener('click', function () {
+    document.getElementById('credits').classList.toggle('open');
+  });
+</script>
+</body>
+</html>
