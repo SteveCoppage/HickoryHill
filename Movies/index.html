@@ -105,6 +105,8 @@
 </div>
 <script>
   var player = new Audio();
+  var ledText = document.getElementById('ledText');
+  var ledTimer = null;
   var buttons = document.querySelectorAll('.btn');
   buttons.forEach(function (b) {
     b.addEventListener('click', function () {
@@ -112,6 +114,9 @@
       player.play();
       buttons.forEach(function (x) { x.classList.remove('revealed'); });
       b.classList.add('revealed');
+      ledText.textContent = 'Now playing: ' + b.querySelector('.quote').textContent;
+      if (ledTimer) clearTimeout(ledTimer);
+      ledTimer = setTimeout(function () { ledText.textContent = 'Ready'; }, 2600);
     });
   });
   document.getElementById('creditsBtn').addEventListener('click', function () {
