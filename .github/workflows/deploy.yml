@@ -36,6 +36,8 @@ jobs:
           if [ -d Movies ]; then cp -r Movies site/; fi
           # Publish the lowercase movies redirect at /movies (front page unchanged)
           if [ -d movies ]; then cp -r movies site/; fi
+          # Publish the timeline at /timeline (front page unchanged)
+          if [ -d timeline ]; then cp -r timeline site/; fi
           ls -R site
       - name: Set personal page as front page
         run: cp personal-page.html site/index.html
