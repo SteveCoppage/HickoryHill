@@ -38,6 +38,8 @@ jobs:
           if [ -d movies ]; then cp -r movies site/; fi
           # Publish the timeline at /timeline (front page unchanged)
           if [ -d timeline ]; then cp -r timeline site/; fi
+          # Publish the logo at the site root (front page unchanged)
+          if [ -f logo.webp ]; then cp logo.webp site/; fi
           ls -R site
       - name: Set personal page as front page
         run: cp personal-page.html site/index.html
